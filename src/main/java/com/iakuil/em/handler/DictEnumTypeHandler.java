@@ -2,49 +2,58 @@ package com.iakuil.em.handler;
 
 import com.iakuil.em.DictEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.EnumTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
- * MyBatis枚举字典处理
+ * MyBatis字典枚举处理器
+ *
+ * @author Kai
  */
-public class DictEnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
+public class DictEnumTypeHandler<E extends Enum<?> & DictEnum> extends BaseTypeHandler<DictEnum> {
 
-    private BaseTypeHandler typeHandler;
+    private final Class<E> type;
 
     public DictEnumTypeHandler(Class<E> type) {
-        if (type == null) {
-            throw new IllegalArgumentException("Type argument cannot be null");
-        }
-        if (DictEnum.class.isAssignableFrom(type)) {
-            typeHandler = new DictEnumTypeHandler(type);
-        } else {
-            typeHandler = new EnumTypeHandler<>(type);
-        }
+        Objects.requireNonNull(type, "Type argument cannot be null");
+        this.type = type;
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
-        typeHandler.setNonNullParameter(ps, i, parameter, jdbcType);
+    public void setNonNullParameter(PreparedStatement ps, int i, DictEnum parameter, JdbcType jdbcType) throws SQLException {
+        ps.setObject(i, parameter.getValue());
     }
 
     @Override
     public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return (E) typeHandler.getNullableResult(rs, columnName);
+        Object value = rs.getObject(columnName);
+        return rs.wasNull() ? null : codeOf(value);
     }
 
     @Override
     public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        return (E) typeHandler.getNullableResult(rs, columnIndex);
+        Object value = rs.getObject(columnIndex);
+        return rs.wasNull() ? null : codeOf(value);
     }
 
     @Override
     public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return (E) typeHandler.getNullableResult(cs, columnIndex);
+        Object value = cs.getObject(columnIndex);
+        return cs.wasNull() ? null : codeOf(value);
+    }
+
+    private E codeOf(Object value) {
+        E[] enumConstants = type.getEnumConstants();
+        for (E e : enumConstants) {
+            if (value.equals(e.getValue())) {
+                return e;
+            }
+        }
+        return null;
     }
 }

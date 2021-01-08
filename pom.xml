@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.iakuil</groupId>
     <artifactId>ez-mapper-core</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
 
     <name>Easy Mapper Core</name>
     <url>https://github.com/liukai237/ez-mapper-core</url>
@@ -39,9 +39,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <mybatis.version>3.5.6</mybatis.version>
+        <druid.version>1.2.4</druid.version>
         <jackson-core.version>2.12.0</jackson-core.version>
         <jackson-databind.version>2.10.5</jackson-databind.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
         <cglib.version>3.1</cglib.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -61,6 +63,11 @@
             <version>3.5.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -78,6 +85,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections4.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
