@@ -67,14 +67,6 @@ public class OptimisticLockerInterceptor implements Interceptor {
     private String versionColumn;
 
     @Override
-    public void setProperties(Properties properties) {
-        versionColumn = properties.getProperty("versionColumn", "version");
-        if (versionColumn == null || versionColumn.trim().length() == 0) {
-            versionColumn = "version";
-        }
-    }
-
-    @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Object intercept(Invocation invocation) throws Exception {
 
@@ -165,4 +157,11 @@ public class OptimisticLockerInterceptor implements Interceptor {
         return target;
     }
 
+    @Override
+    public void setProperties(Properties properties) {
+        versionColumn = properties.getProperty("versionField", "version");
+        if (versionColumn == null || versionColumn.trim().length() == 0) {
+            versionColumn = "version";
+        }
+    }
 }

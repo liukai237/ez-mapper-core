@@ -55,7 +55,7 @@ public class LogicallyDeletedInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
-        logicDeleteField = properties.getProperty("logicDeleteField");
+        logicDeleteField = properties.getProperty("logicDeleteField", "deleted");
         logicDeleteValue = properties.getProperty("logicDeleteValue");
         logicNotDeleteValue = properties.getProperty("logicNotDeleteValue");
         dbType = properties.getProperty("dbType");
