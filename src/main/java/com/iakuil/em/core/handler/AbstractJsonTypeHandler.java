@@ -1,6 +1,6 @@
-package com.iakuil.em.handler;
+package com.iakuil.em.core.handler;
 
-import com.iakuil.em.util.JsonUtils;
+import com.iakuil.toolkit.JsonUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;

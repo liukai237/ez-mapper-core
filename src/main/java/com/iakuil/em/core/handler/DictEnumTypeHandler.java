@@ -1,6 +1,6 @@
-package com.iakuil.em.handler;
+package com.iakuil.em.core.handler;
 
-import com.iakuil.em.DictEnum;
+import com.iakuil.em.core.DictEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

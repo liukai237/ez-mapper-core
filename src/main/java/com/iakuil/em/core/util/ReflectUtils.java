@@ -1,4 +1,4 @@
-package com.iakuil.em.util;
+package com.iakuil.em.core.util;
 
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -128,33 +128,5 @@ public final class ReflectUtils {
         } catch (Exception e) {
             return new IllegalStateException("[Occurring an exception during method invoking!]", e);
         }
-    }
-
-    /**
-     * 判断属性名是否已经被Mapper映射
-     *
-     * @param mapperName Mapper名称，带包名，不带后缀
-     * @param fieldName  属性名称
-     * @return 调用方法返回的值
-     */
-    public static boolean isFieldMapped(String mapperName, String fieldName) {
-        Type[] types;
-        try {
-            types = Class.forName(mapperName).getGenericInterfaces();
-        } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("Unknown class: " + mapperName);
-        }
-
-        for (Type type : types) {
-            ParameterizedType pt = (ParameterizedType) type;
-            Type[] arguments = ((ParameterizedType) type).getActualTypeArguments();
-            for (Type argument : arguments) {
-                if (getField(argument, fieldName) != null) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }

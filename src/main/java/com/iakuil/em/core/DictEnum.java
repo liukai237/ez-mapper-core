@@ -1,4 +1,4 @@
-package com.iakuil.em;
+package com.iakuil.em.core;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

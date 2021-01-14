@@ -1,4 +1,4 @@
-package com.iakuil.em.annotation;
+package com.iakuil.em.core.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
